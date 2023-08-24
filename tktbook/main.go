@@ -16,17 +16,15 @@ func main() {
 	for {
 		firstName, lastName, email, userTicket := getUserInput()
 		isValidName, isValidEmail, isValidTicketNumber := validateUserInput(firstName, lastName, email, userTicket, remTicket)
+
 		if isValidName && isValidEmail && isValidTicketNumber {
-			remTicket = remTicket - userTicket
-			bookings = append(bookings, firstName+" "+lastName)
+
+			bookTicket(remTicket, userTicket, bookings, firstName, lastName, email, cfrcName)
 
 			//fmt.Printf("The whole slice: %v\n", bookings)
 			//fmt.Printf("The first value: %v\n", bookings[0])
 			//fmt.Printf("slice type: %T\n", bookings)
 			//fmt.Printf("slice length: %v\n", len(bookings))
-
-			fmt.Printf("Thank you %v %v for booking %v ticket, you will recieve a confirmation email at %v\n", firstName, lastName, userTicket, email)
-			fmt.Printf("%v tickets remaining for %v\n", remTicket, cfrcName)
 
 			firstNames := getFirstNames(bookings)
 			fmt.Printf("These are all our bookings %v\n", firstNames)
@@ -89,5 +87,13 @@ func getUserInput() (string, string, string, uint) {
 	fmt.Scan(&userTicket)
 
 	return firstName, lastName, email, userTicket
+
+}
+
+func bookTicket(remTicket uint, userTicket uint, bookings []string, firstName string, lastName string, email string, cfrcName string) {
+	remTicket = remTicket - userTicket
+	bookings = append(bookings, firstName+" "+lastName)
+	fmt.Printf("Thank you %v %v for booking %v ticket, you will recieve a confirmation email at %v\n", firstName, lastName, userTicket, email)
+	fmt.Printf("%v tickets remaining for %v\n", remTicket, cfrcName)
 
 }
